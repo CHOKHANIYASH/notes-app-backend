@@ -18,15 +18,10 @@ const User = require('./models/userSchema')
 const MongoDBStore = require('connect-mongo');
 const { json } = require('express');
 const cors = require("cors")
-// app.set('trust proxy', 1)//session change**
 app.use(cors({
     origin:"http://localhost:3001",
     credentials:true,
 }))
-// app.use((req, res, next) => {
-//     res.setHeader("Access-Control-Allow-Origin", "");
-//     next();
-//   });
 
 app.engine('ejs', ejsMate)
 
@@ -37,8 +32,8 @@ app.use(express.static(path.join(__dirname,'public')))
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
-// const dbUrl = process.env.DB_URL 
-const dbUrl='mongodb://localhost:27017/to-do'
+const dbUrl = process.env.DB_URL 
+// const dbUrl='mongodb://localhost:27017/to-do'
 mongoose.connect(dbUrl).then(() =>{
     console.log('DATABASE CONNECTED')
 })   
