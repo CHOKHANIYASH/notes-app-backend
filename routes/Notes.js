@@ -6,13 +6,12 @@ const Users= require('../models/userSchema')
 const {isLoggedIn} = require('../middleware')
 const { Session } = require('express-session')
 
-router.get('/home',isLoggedIn ,async(req,res) => {
-
-   const user = await Users.findOne({username:res.locals.currentUser.username}).populate('notes');
-   const notes = user.notes
-   const starred = user.starred
-   res.send({notes:notes,starred:starred});
-  })
+  router.get('/home',isLoggedIn ,async(req,res) => {
+    const user = await Users.findOne({username:res.locals.currentUser.username}).populate('notes');
+    const notes = user.notes
+    const starred = user.starred
+    res.send({notes:notes,starred:starred});
+    })
 
   router.get('/:id/edit',async(req,res) => {
       const id= req.params.id
@@ -35,7 +34,7 @@ router.get('/home',isLoggedIn ,async(req,res) => {
   router.get('/:id/home',isLoggedIn,async(req,res) => {
       const id= req.params.id
       const notes = await Notes.findById(id)
-      res.render('notes',{notes})
+      res.send({notes:notes})
   })
   
   

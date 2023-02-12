@@ -1,7 +1,7 @@
 if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
-console.log("hello")
+
 const express = require('express')
 const app = express()
 const path = require('path')
@@ -20,13 +20,11 @@ const { json } = require('express');
 const cors = require("cors")
 // app.set('trust proxy', 1)//session change**
 app.use(cors({
-    origin:"http://localhost:3001",
+    origin:'http://localhost:3001',
     credentials:true,
 }))
-// app.use((req, res, next) => {
-//     res.setHeader("Access-Control-Allow-Origin", "");
-//     next();
-//   });
+// app.use(cors());
+
 
 app.engine('ejs', ejsMate)
 
