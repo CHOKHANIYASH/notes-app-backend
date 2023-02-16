@@ -6,13 +6,12 @@ const Users= require('../models/userSchema')
 const {isLoggedIn} = require('../middleware')
 const { Session } = require('express-session')
 
-router.get('/home',isLoggedIn ,async(req,res) => {
-
-   const user = await Users.findOne({username:res.locals.currentUser.username}).populate('notes');
-   const notes = user.notes
-   const starred = user.starred
-   res.send({notes:notes,starred:starred});
-  })
+  router.get('/home',isLoggedIn ,async(req,res) => {
+    const user = await Users.findOne({username:res.locals.currentUser.username}).populate('notes');
+    const notes = user.notes
+    const starred = user.starred
+    res.send({notes:notes,starred:starred});
+    })
 
   router.get('/:id/edit',async(req,res) => {
       const id= req.params.id
@@ -35,15 +34,15 @@ router.get('/home',isLoggedIn ,async(req,res) => {
   router.get('/:id/home',isLoggedIn,async(req,res) => {
       const id= req.params.id
       const notes = await Notes.findById(id)
-      res.render('notes',{notes})
+      res.send({notes:notes})
   })
   
   
   router.put('/:id/edit',isLoggedIn,async(req,res) => {
     const updateNote = await Notes.findByIdAndUpdate(req.params.id,{...req.body.notes}) ;
-    res.send(JSON.stringify({
+    res.send({
       message:"Edited the Note"
-    }))
+    })
   })
   
   router.delete('/:id/delete',isLoggedIn,async(req,res) => {
@@ -53,9 +52,9 @@ router.get('/home',isLoggedIn ,async(req,res) => {
       await user.update({ $pull: { notes: id } });
       user.save()
       await Notes.findByIdAndDelete(req.params.id)
-      res.send(JSON.stringify({
+      res.send({
        message:"Deleted the Note"
-    }))
+    })
   })
 
   router.get('/starred',isLoggedIn,async(req,res)=>{
@@ -76,7 +75,8 @@ router.get('/home',isLoggedIn ,async(req,res) => {
     await user.updateOne({ $pull: { starred: id } });
     await user.save()
     }
-    const redirectUrl =req.query.url || '/notes/home'
-    res.redirect(redirectUrl)
+    // const redirectUrl =req.query.url || '/notes/home'
+    // res.redirect(redirectUrl)
+    res.send("Note is marked Star")
   })
 module.exports = router
