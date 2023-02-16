@@ -73,7 +73,7 @@ router.get('/home',isLoggedIn ,async(req,res) => {
         await user.save()
         }
     else{
-    await user.update({ $pull: { starred: id } });
+    await user.updateOne({ $pull: { starred: id } });
     await user.save()
     }
     const redirectUrl =req.query.url || '/notes/home'

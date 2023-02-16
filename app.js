@@ -19,7 +19,7 @@ const MongoDBStore = require('connect-mongo');
 const { json } = require('express');
 const cors = require("cors")
 app.use(cors({
-    origin:"http://localhost:3001",
+    origin:process.env.CLIENT,
     credentials:true,
 }))
 
