@@ -40,9 +40,9 @@ const { Session } = require('express-session')
   
   router.put('/:id/edit',isLoggedIn,async(req,res) => {
     const updateNote = await Notes.findByIdAndUpdate(req.params.id,{...req.body.notes}) ;
-    res.send(JSON.stringify({
+    res.send({
       message:"Edited the Note"
-    }))
+    })
   })
   
   router.delete('/:id/delete',isLoggedIn,async(req,res) => {
@@ -52,9 +52,9 @@ const { Session } = require('express-session')
       await user.update({ $pull: { notes: id } });
       user.save()
       await Notes.findByIdAndDelete(req.params.id)
-      res.send(JSON.stringify({
+      res.send({
        message:"Deleted the Note"
-    }))
+    })
   })
 
   router.get('/starred',isLoggedIn,async(req,res)=>{
@@ -72,10 +72,11 @@ const { Session } = require('express-session')
         await user.save()
         }
     else{
-    await user.update({ $pull: { starred: id } });
+    await user.updateOne({ $pull: { starred: id } });
     await user.save()
     }
-    const redirectUrl =req.query.url || '/notes/home'
-    res.redirect(redirectUrl)
+    // const redirectUrl =req.query.url || '/notes/home'
+    // res.redirect(redirectUrl)
+    res.send("Note is marked Star")
   })
 module.exports = router

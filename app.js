@@ -20,7 +20,7 @@ const { json } = require('express');
 const cors = require("cors")
 // app.set('trust proxy', 1)//session change**
 app.use(cors({
-    origin:'http://localhost:3001',
+    origin:process.env.CLIENT,
     credentials:true,
 }))
 // app.use(cors());
