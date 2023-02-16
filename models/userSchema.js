@@ -1,15 +1,10 @@
 const mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose')
 const userSchema = new mongoose.Schema({
-    id:{
-        type:Number,
-        unique:true,
-        partialFilterExpression: {id: {$type: "string"}}
-    },
     email:{
         type:String,
         required:true,
-        
+        unique:true
     },
     username:{
         type:String,

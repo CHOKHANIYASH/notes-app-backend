@@ -75,8 +75,6 @@ const { Session } = require('express-session')
     await user.updateOne({ $pull: { starred: id } });
     await user.save()
     }
-    // const redirectUrl =req.query.url || '/notes/home'
-    // res.redirect(redirectUrl)
     res.send("Note is marked Star")
   })
 module.exports = router

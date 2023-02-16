@@ -33,7 +33,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
 const dbUrl = process.env.DB_URL 
-// const dbUrl='mongodb://localhost:27017/to-do'
 mongoose.connect(dbUrl).then(() =>{
     console.log('DATABASE CONNECTED')
 })   
@@ -55,7 +54,6 @@ const sessionConfig = {
     store,
     secret:"asdfghjklsss",
     resave:false,
-    // saveUninitialized:true,   changed for multiple session issue
     saveUninitialized: false,
     cookie:{
         httpOnly:true,
