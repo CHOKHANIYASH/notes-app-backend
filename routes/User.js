@@ -17,7 +17,7 @@ router.post('/register',async(req,res)=>{
 })
 
 router.post('/login',passport.authenticate('local',{failureFlash:true}),(req,res)=>{
-    res.cookie('user',`${req.session.passport.user}`,{ domain: process.env.CLIENT, path: '/',sameSite:'none', secure: true })
+    res.cookie('user',`${req.session.passport.user}`,{ domain: process.env.CLIENT, path: '/' })
     res.send({
         message:"Welcome back🙂"
     })
