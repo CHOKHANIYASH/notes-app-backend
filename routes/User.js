@@ -9,7 +9,7 @@ router.post('/register',async(req,res)=>{
     const newUser = new Users({email,username,firstName,lastName})
     const registeredUser = await Users.register(newUser,password)
     req.login(registeredUser,()=>{
-        res.cookie('user',`${req.session.passport.user}`)   
+        res.cookie('user',`${req.session.passport.user}` ,{ domain: process.env.CLIENT, path: '/', secure: true })   
         res.send({
             message:"Successfully Registered"
         })
@@ -17,7 +17,7 @@ router.post('/register',async(req,res)=>{
 })
 
 router.post('/login',passport.authenticate('local',{failureFlash:true}),(req,res)=>{
-    res.cookie('user',`${req.session.passport.user}`)
+    res.cookie('user',`${req.session.passport.user}`,{ domain: process.env.CLIENT, path: '/', secure: true })
     res.send({
         message:"Welcome back🙂"
     })
